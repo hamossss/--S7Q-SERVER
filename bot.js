@@ -449,6 +449,11 @@ client.on('message', msg => {
 
 
 
+client.on('message', msg => {
+  if (msg.content === 'متجر') {
+    msg.reply('https://discord.gg/5rXufXu تفضل يا حلو');
+  }
+});
 
 
 
