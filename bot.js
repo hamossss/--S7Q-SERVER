@@ -1831,7 +1831,7 @@ const prefix = '+'
 	client.on('message', msg => {
     if (msg.content === 'الوان') {
       if (msg.channel.id !== "486935400107999243") return;
-      msg.channel.send({file : "https://cdn.discordapp.com/attachments/472743324084731914/478685035730305036/color.png"})
+      msg.channel.send({file : "https://cdn.discordapp.com/attachments/486935400107999243/487504833973321730/colors.png"})
     }
   });
 client.on('message', message => {
