@@ -149,8 +149,8 @@ client.on("guildMemberAdd", function(member) {
 
          client.on("message", async message => {
             if(!message.channel.guild) return;
-            var prefix = ".";
-        if(message.content.startsWith(prefix + 'invites')) {
+            var prefix = "د";
+        if(message.content.startsWith(prefix + 'عواتي')) {
         var nul = 0
         var guild = message.guild
         await guild.fetchInvites()
