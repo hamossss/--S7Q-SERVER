@@ -133,4 +133,20 @@ client.on("guildMemberAdd", member => {
       
       }
       });
+
+
+client.on("guildMemberAdd", function(member) {
+    const wc = member.guild.channels.find("name", "chat")
+        const embed = new Discord.RichEmbed()
+        .setColor('B90C0C')
+        .setAuthor(member.user.tag, member.user.avatarURL)
+ .setDescription('***Welcome To Royal Clan.. ***')
+.setThumbnail(member.avatarURL)
+        .setTimestamp()
+        return wc.sendEmbed(embed);
+        
+});
+
+
+
 client.login(process.env.BOT_TOKEN);
