@@ -235,33 +235,77 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return m
 
 
 
-client.on('message',message =>{
-  var prefix = ".";
-  if(message.content.startsWith(prefix + 'top')) {
-message.guild.fetchInvites().then(i =>{
-var invites = [];
+ client.on('message', message => {
+        if(!message.channel.guild) return;
+        var prefix = "ا";
+    if(message.content.startsWith(prefix + 'سحب')) {
+        var cmdrole = message.guild.roles.find("name", config.cmdrole)
+           if (message.member.hasPermission("MOVE_MEMBERS")) {
+                  if (message.mentions.users.size === 0) {
+                         return message.channel.send("``لاستخدام الأمر اكتب هذه الأمر : " +prefix+ "move [USER]``")
+                  }
+                  if (message.member.voiceChannel != null) {
+                         if (message.mentions.members.first().voiceChannel != null) {
+                                var authorchannel = message.member.voiceChannelID;
+                                var usermentioned = message.mentions.members.first().id;
+                               var embed = new Discord.RichEmbed()
+                                  .setTitle("Succes!")
+                                  .setColor("#000000")
+                                  .setDescription(`لقد قمت بسحب <@${usermentioned}> الى الروم الصوتي الخاص بك:white_check_mark: `)
+                                var embed = new Discord.RichEmbed()
+                                  .setTitle(`You are Moved in ${message.guild.name}`)
+                                  .setColor("#000000")
+                                  .setDescription(`<@${message.author.id}> moved you to his channel!\nServer => ${message.guild.name}`)
+                                                              message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
+                                message.guild.members.get(usermentioned).send(embed)
+                         } else {
+                                message.channel.send("``لا تستطيع سحب "+ message.mentions.members.first() +" `يجب ان يكون هذه العضو في روم صوتي`")
+                         }
+                  } else {
+                         message.channel.send("``يجب ان تكون في روم صوتي لكي تقوم بسحب العضو أليك``")
+                  }
+           } else {
+                  message.react("❌")
+           }
+        }
+        });
 
-i.forEach(inv =>{
-  var [invs,i]=[{},null];
-  
-  if(inv.maxUses){
-      invs[inv.code] =+ inv.uses+"/"+inv.maxUses;
-  }else{
-      invs[inv.code] =+ inv.uses;
-  }
-      invites.push(`invite: ${inv.url} inviter: ${inv.inviter} \`${invs[inv.code]}\`;`);
 
-});
-var embed = new Discord.RichEmbed()
-.setColor("#000000")
-.setDescription(`${invites.join(`\n`)+'\n\n**By:** '+message.author}`)
-.setThumbnail(message.author.avatarURL)
-message.channel.send({ embed: embed });
 
-});
+    client.on("message", async message => {
+        if(!message.channel.guild) return;
+ var prefix= ".";
+        if(message.content.startsWith(prefix + 'server2')) {
+        let guild = message.guild
+        let channel = message.channel
+        let guildicon = guild.icon_url
+        let members = guild.memberCount
+        let bots = guild.members.filter(m => m.user.bot).size
+        let humans = members - bots
+        let allchannels = guild.channels.size
+        let textchannels = guild.channels.filter(e => e.type === "text")
+        let voicechannels = guild.channels.filter(e => e.type === "voice")
+          var embed = new Discord.RichEmbed()
+          .setColor("#000000")
+          .setTitle(`معلومات عن السيرفر`)
+          .setDescription(`معلومات عن : ${guild.name}`)
+          .addField("صاحب السيرفر :", `${guild.owner}`, true)
+          .addField("أيدي السيرفر :", `${guild.id}`, true)
+          .addField("موقع السيرفر :", `${guild.region}`, true)
+          .addField("مستوى حماية السيرفر :", `${guild.verificationLevel}`, true)
+          .addField("عدد الرومات الصوتية :", `${voicechannels.size}`, true)
+          .addField("عدد الرومات الكتابية :", `${textchannels.size}`, true)
+          .addField("عدد اعضاء السيرفر :", `${members}`, true)
+          .addField("عدد البوتات :", `${bots}`, true)
+          .addField("عدد الاشخاص :", `${humans}`, true)
+          .addField("عدد رتب السيرفر :", `${guild.roles.size}`, true)
+          .addField(`أيموجيات الخاصة بالسيرفر : (${guild.emojis.size})`, `- ${guild.emojis.array()}`, true)
+          .setFooter(`تم انشاء هذه السيرفر في: ${guild.createdAt}`)
 
-  }
-});
+       message.channel.send({ embed: embed });
+
+      }
+    });
 
 
 
