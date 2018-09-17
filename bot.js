@@ -140,7 +140,7 @@ client.on("guildMemberAdd", function(member) {
         const embed = new Discord.RichEmbed()
         .setColor('B90C0C')
         .setAuthor(member.user.tag, member.user.avatarURL)
- .setDescription('***Welcome To Royal Clan.. ***')
+ .setDescription('**Welcome To RL Clan.. **')
 .setThumbnail(member.avatarURL)
         .setTimestamp()
         return wc.sendEmbed(embed);
