@@ -270,7 +270,40 @@ client.on("guildMemberAdd", member => {
 }).catch(console.error)
 })
 
+client.on('message', message => {
+var prefix = "#";
 
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id == 428733432731009024)
+return;
+if (message.content.startsWith(prefix + 'idle')) {
+   if (message.author.id !== '466425075487342615') return message.react('⚠')
+client.user.setStatus('idle');  
+message.react("✅")
+}
+                        
+ });
+
+
+client.on('message', message => {
+var prefix = "#";
+
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id == 466425075487342615)
+return;
+
+
+if (message.content.startsWith(prefix + 'offline')) {
+    if (message.author.id !== '466425075487342615') return message.react('⚠')
+client.user.setStatus('invisible');  
+message.react("✔")
+}
+                        
+ });
 
 
 
