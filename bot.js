@@ -235,40 +235,85 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return m
 
 
 
-client.on("guildMemberAdd", member => {
-  member.createDM().then(function (channel) {
-  return channel.send(` ═════════════════════ஜ۩۞۩ஜ═════════════════════ 
-  　 　 　　　                       •● W E L C O M E - T O - RL - C L A N●• 
-  ═════════════════════ஜ۩۞۩ஜ═════════════════════
-  : السلام عليكم ورحمة الله وبركاته.. قوانين جديدة للكلان
-  : أول شي : بالنسبة للشعار تغير
-  : الشعار بإسمك باللعبة 
-  ! RL اسمك
-  : الشعار بإسمك بالدسكورد مب بالسيرفر
-  ! RL اسمك
-  : ملاحظة
-  ! إذا حطيت شعار الدسكورد باللعبة أو شعار اللعبة بالدسكورد أو شعار غير ذولا تنشال رتبتك - 
-  --------------------------------------
-  : ثاني شي : بالنسبة للرتب
-  "إذا تطلب رتبة من أول مرّة تاخذ إنذار من دون نقاش و ع كل مرة فيها تطلب رتبة تاخذ إنذار"
-  "ولتصير عضو أساسي بالكلان لازم تحط بإسمك بالدسكورد الشعار الي فوق بالرسالة، ولازم نختبرك"
-  "وإذا تقول انا خويكك ومن مشتركينك ومدري ايش.. هذا الكلام عليه إنذار مثلك مثل باقي الناس"
-  : ملاحظة
-  إنذار أول، إنذار ثاني، إنذار ثالث؛ تتبند -
-  --------------------------------------
-  : (ثالث شي : السب بشكل عام، أو بشكل خاص (مزح وطقطقة مع خويك
-  "ممنوع السب بغض النظر لو كان مشكلة، أو حتى مع خويك يعني مزح.. المزح بالسب ممنوع"
-  "تبي تسب سبه خاص مثل م تبي بس بالشات العام ممنوع السب"
-  "وإذا تسب بالشات تاخذ ميوت كتابي وإنذار"
-  : ملاحظة
-  إذا تقول لأحد من الإدارة تفك عنك الميوت بتبلع إنذار -
-  -------------------------------------
-  ..وبس هذي القوانين الجديدة .. الرجاء من كل من في السيرفر أن يتقيد بها وخاصةً الأصدقاء.
-  - سيتم التعديل على بعض الرتب والرومات.. ونتمنى لكم التوفيق. 
-   طاقم الإدارة ~
-    ${member} `) 
-}).catch(console.error)
-})
+client.on('message', message => {
+    var prefix = ".";
+    
+      if (!message.content.startsWith(prefix)) return;
+      var args = message.content.split(' ').slice(1);
+      var argresult = args.join(' ');
+      if (message.author.id == 410835593451405312) return;
+    
+    
+    if (message.content.startsWith(prefix + 'playing')) {
+    if (message.author.id !== '466425075487342615') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setGame(argresult);
+        message.channel.sendMessage(`**${argresult}** : تم تغيير الحالة`)
+    } else
+    
+     
+    if (message.content.startsWith(prefix + 'streem')) {
+    if (message.author.id !== '466425075487342615') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setGame(argresult, "http://twitch.tv/HP");
+        message.channel.sendMessage(`**${argresult}** :تم تغيير الحالة الى ستريمنج`)
+    } else
+    
+    if (message.content.startsWith(prefix + 'setname')) {
+    if (message.author.id !== '466425075487342615') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+      client.user.setUsername(argresult).then
+          message.channel.sendMessage(`**${argresult}** : تم تغير الأسم`)
+      return message.reply("**لا تستطيع تغير الأسم الا بعد ساعتين**");
+    } else
+        
+    if (message.content.startsWith(prefix + 'setavatar')) {
+    if (message.author.id !== '466425075487342615') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setAvatar(argresult);
+        message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+    } else
+    
+    
+    if (message.content.startsWith(prefix + 'watching')) {
+    if (message.author.id !== '466425075487342615') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+        client.user.setActivity(argresult, {type : 'watching'});
+     message.channel.sendMessage(`**${argresult}** : تم تغيير الووتشينق الى`)
+    }
+    
+     });
+
+client.on('message', message => {
+var prefix = "#";
+
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id == 410835593451405312)
+return;
+if (message.content.startsWith(prefix + 'dnd')) {
+  if (message.author.id !== '466425075487342615') return message.react('⚠')
+client.user.setStatus('dnd');  
+message.react("✅")
+}
+                        
+ });
+
+
+client.on('message', message => {
+var prefix = "#";
+
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id == 410835593451405312)
+return;
+
+
+if (message.content.startsWith(prefix + 'online')) {
+  if (message.author.id !== '466425075487342615') return message.react('⚠')
+  client.user.setStatus('online');  
+message.react("✅")
+}
+                        
+ });
+
 
 client.on('message', message => {
 var prefix = "#";
@@ -293,7 +338,7 @@ var prefix = "#";
   if (!message.content.startsWith(prefix)) return;
   var args = message.content.split(' ').slice(1);
   var argresult = args.join(' ');
-  if (message.author.id == 466425075487342615)
+  if (message.author.id == 428733432731009024)
 return;
 
 
@@ -304,7 +349,7 @@ message.react("✔")
 }
                         
  });
-
+ 
 
 
 client.login(process.env.BOT_TOKEN);
