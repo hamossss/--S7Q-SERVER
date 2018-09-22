@@ -330,45 +330,99 @@ message.react("✔")
 
 
 
+
+
+let rebel;
+client.on("ready", async  => {
+    let guild = client.guilds.get("492470025844817934");
+  let users = guild.members.map(member => member.user.id);
+  let i;
+  rebel=0;
+for (i=0 ; i < users.length ; i++) {
+ let   check = guild.members.get(users[i]);
+if(!check.voiceChannelID){
+        continue;
+}else{
+  rebel++;
+}
+}
+guild.channels.find('id', '492894719253282828').setName("Famly 57 Voice  「"+rebel+"」");
+  client.setInterval(() =>{
+    let d = Date.now()
+  }, 5000);
+});
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+    let guild = client.guilds.get("492470025844817934");
+let newUserChannel = newMember.voiceChannel
+let oldUserChannel = oldMember.voiceChannel
+ if(oldUserChannel === undefined && newUserChannel !== undefined) {
+   rebel++;
+guild.channels.find('id', '492894719253282828').setName("Famly 57 Voice  「"+rebel+"」");
+} else if(newUserChannel === undefined){
+  rebel--;
+guild.channels.find('id', '492894719253282828').setName("Famly 57 Voice  「"+rebel+"」");
+}
+});
+client.on('message', Codes => {
+  
+  if(Codes.content === "صوت") {
+      Codes.channel.send("Famly 57 Voice  「"+rebel+"」");
+}
+});
+
+
+client.on ("guildMemberAdd", member => {
+
+   var role = member.guild.roles.find ("name", "Famly 57");
+   member.addRole (role);
+
+});
+
+
+
+
 client.on('message', message => {
 	var prefix = "م";
-   if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + 'سح')) {
-if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));
-if(!message.member.hasPermission('MANAGE_MESSAGES')) return      message.channel.send('**You Do not have permission** `MANAGE_MESSAGES`' );
-let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-let request = `Requested By ${message.author.username}`;
-message.channel.send(`**Are You sure you want to clear the chat?**`).then(msg => {
-msg.react('✅')
-.then(() => msg.react('❌'))
-.then(() =>msg.react('✅'))
+    if (message.content.startsWith(prefix + 'سح')) {
+      if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(`ماعندك هذا البرمشن[*MANAGE_MESSAGES*] `).catch(console.error);
+  message.delete()
+  if(!message.channel.guild) return;
+  let args = message.content.split(" ").slice(1);
+  
+  const messagecount = parseInt(args.join(' '));
+  
+  message.channel.fetchMessages({
+  
+  limit: messagecount
+  
+  }).then(messages => message.channel.bulkDelete(messages));
+  message.channel.sendMessage("", {embed: {
+    title: "``✏️✅ تــم مسح الشات ``",
+    color: 0x06DF00,
+    footer: {
+    
+    }
+    }}).then(msg => {msg.delete(3000)});
+  };
+  
+  });
 
-let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
 
-let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-reaction1.on("collect", r => {
-message.channel.send(`Chat will delete`).then(m => m.delete(5000));
-var msg;
-        msg = parseInt();
 
-      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message.channel.sendMessage("", {embed: {
-        title: "`` Chat Deleted ``",
-        color: 0x06DF00,
-        footer: {
 
-        }
-      }}).then(msg => {msg.delete(3000)});
+var prefix = ".";
+client.on("message", message => {
 
+            if (message.content.startsWith(prefix + "bc")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' '); 
+  message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {
+ m.send(`${argresult}\n ${m}`);
 })
-reaction2.on("collect", r => {
-message.channel.send(`**Chat deletion cancelled**`).then(m => m.delete(5000));
-msg.delete();
-})
-})
-}
+ message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` : عدد الاعضاء المستلمين`); 
+ message.delete(); 
+};     
 });
 
 
